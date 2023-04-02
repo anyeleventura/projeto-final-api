@@ -5,5 +5,5 @@ const app = express();
 app.use(express.json());
 
 app.listen(8000, () => {
-    console.log('ok');
+    console.log('ta on');
 });
