@@ -8,3 +8,9 @@ CREATE TABLE tb_colecoes_destaque (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NULL
 );
+
+ALTER TABLE tb_colecoes_destaque
+DROP COLUMN desconto_status;
+
+ALTER TABLE tb_colecoes_destaque
+ADD COLUMN desconto INT;
