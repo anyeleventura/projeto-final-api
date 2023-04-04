@@ -1,25 +1,27 @@
 const app = require('express').Router();
 const database = require('../../connection/database');
+const table = 'tb_cliente';
+const url = '/clientes';
 
-app.get('/clientes', async (req, res) => {
-    let dados = await database.execute(`SELECT * FROM tb_cliente`);
+app.get(url, async (req, res) => {
+    let dados = await database.execute(`SELECT * FROM ${table}`);
 
     res.send(dados);
 });
 
-app.get('/clientes/:id', async (req, res) => {
+app.get(`${url}/:id`, async (req, res) => {
     let dados = await database.execute(`
-        SELECT * FROM tb_cliente WHERE id='${req.params.id}'
+        SELECT * FROM ${table} WHERE id='${req.params.id}'
     `);
 
     res.send(dados[0]);
 });
 
-app.post('/clientes', async (req, res) => {
+app.post(url, async (req, res) => {
     let corpo = req.body;
 
     let sql = await database.execute(`
-        INSERT INTO tb_cliente (nome, cpf, email, celular, senha)
+        INSERT INTO ${table} (nome, cpf, email, celular, senha)
         VALUES ('${corpo.nome}', '${corpo.cpf}','${corpo.email}', ${corpo.celular}, '${corpo.senha}')
     `);
 
@@ -28,26 +30,40 @@ app.post('/clientes', async (req, res) => {
     res.send(corpo);
 });
 
-app.put('/clientes/:id', async (req, res) => {
-    let dados = req.body; 
+app.patch(`${url}/:id`, async (req, res) => {
+    let dados = req.body;
+
+    let jaExiste = await database.execute(`
+        SELECT * FROM ${table} WHERE id='${req.params.id}'
+    `);
+
+    //testa se existe algum cliente com aquele id
+    if (undefined === jaExiste[0]) {
+        res.sendStatus(404);
+        return;
+    }
 
     await database.execute(`
-        UPDATE tb_cliente SET nome='${dados.nome}', cpf='${dados.cpf}', email='${dados.email}', celular='${dados.celular}', senha='${dados.senha}'
+        UPDATE ${table} SET 
+            nome='${req.body.nome || jaExiste[0].nome}', 
+            cpf='${req.body.cpf || jaExiste[0].cpf}', 
+            email='${req.body.email || jaExiste[0].email}', 
+            celular='${req.body.celular || jaExiste[0].celular}', 
+            senha='${req.body.senha || jaExiste[0].senha}'
         WHERE id = '${req.params.id}'
     `);
-    
-    dados.id = parseInt(req.params.id);
+
+    dados.id = req.params.id;
 
     res.send(dados);
 });
 
-app.delete("/clientes/:id", async (req, res) => {
+app.delete(`${url}/:id`, async (req, res) => {
     await database.execute(`
-        DELETE FROM tb_cliente WHERE id='${req.params.id}'
+        DELETE FROM ${table} WHERE id='${req.params.id}'
     `);
     
     res.sendStatus(204);
 });
-
 
 module.exports = app;
