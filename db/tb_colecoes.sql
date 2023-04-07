@@ -1,5 +1,3 @@
--- 0 = inativo, 1 = ativo
-
 CREATE TABLE tb_colecoes_destaque (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(35) NOT NULL,
@@ -14,3 +12,12 @@ DROP COLUMN desconto_status;
 
 ALTER TABLE tb_colecoes_destaque
 ADD COLUMN desconto INT;
+
+RENAME TABLE tb_colecoes_destaque TO tb_colecoes;
+
+ALTER TABLE tb_colecoes
+ADD COLUMN cupomID INT;
+
+-- ALTER TABLE tb_colecoes
+-- ADD CONSTRAINT FK_colecoescupons
+-- ADD FOREIGN KEY (`cupomID`) REFERENCES tb_cupons(`id`);

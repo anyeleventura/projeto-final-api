@@ -1,3 +1,5 @@
+-- 0 = inativo, 1 = ativo
+
 CREATE TABLE tb_cupom (
     id INT AUTO_INCREMENT PRIMARY KEY,
     referencial VARCHAR(30) NOT NULL,

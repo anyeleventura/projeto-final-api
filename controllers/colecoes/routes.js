@@ -2,8 +2,8 @@ const app = require('express').Router();
 
 const database = require('../../connection/database');
 
-const table = 'tb_colecoes_destaque';
-const url = '/colecoesdestaque';
+const table = 'tb_colecoes';
+const url = '/colecoes';
 
 app.get(`${url}`, async (req, res) => {
     let dados = await database.execute(`SELECT * FROM ${table};`);
