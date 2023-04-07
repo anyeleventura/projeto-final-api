@@ -5,3 +5,6 @@ CREATE TABLE tb_cupom (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NULL
 );
+
+ALTER TABLE tb_cupom
+ADD COLUMN status INT DEFAULT 1;
