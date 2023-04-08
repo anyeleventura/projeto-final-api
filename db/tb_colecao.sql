@@ -1,3 +1,5 @@
+-- 0 = inativo, 1 = ativo
+
 CREATE TABLE tb_colecoes_destaque (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(35) NOT NULL,
@@ -23,3 +25,8 @@ ADD FOREIGN KEY (cupomID) REFERENCES tb_cupom(id);
 
 ALTER TABLE tb_colecoes
 MODIFY COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+ALTER TABLE tb_colecoes
+ADD COLUMN status INT DEFAULT 1;
+
+RENAME TABLE tb_colecoes TO tb_colecao;

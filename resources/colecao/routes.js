@@ -2,7 +2,7 @@ const app = require('express').Router();
 
 const database = require('../../connection/database');
 
-const table = 'tb_colecoes';
+const table = 'tb_colecao';
 const url = '/colecoes';
 
 app.get(`${url}`, async (req, res) => {
@@ -49,24 +49,26 @@ app.patch(`${url}/:id`, async (req, res) => {
                             WHERE id=${req.params.id};
                             `);
     let atual = await database.execute(`SELECT * FROM ${table} 
-                                            WHERE id=${req.params.id};`);
-
+                                            WHERE id=${req.params.id};
+                                            `);
     res.send(atual[0]);
 });
 
-app.put(`${url}/:id`, async (req, res) => {
+app.put(`${url}/cupom/:id`, async (req, res) => {
     await database.execute(`UPDATE ${table} SET
-                            cupomID='${req.body.cupomID}';
+                            cupomID='${req.body.cupomID}'
+                            WHERE id='${req.params.id}';
                             `);
     let cupom = await database.execute(`SELECT * FROM ${table}
-                                        WHERE id='${req.params.id}';
+                                        WHERE id=${req.params.id};
                                         `);
     res.send(cupom[0]);
 });
 
-app.delete(`${url}/:id`, async (req, res) => {
-    await database.execute(`DELETE FROM ${table} 
-                            WHERE id=${req.params.id};`)
+app.put(`${url}/:id`, async (req, res) => {
+    await database.execute(`UPDATE ${table} SET status = 0 
+                                WHERE id=${req.params.id};
+                                `)
     res.sendStatus(204);
 });
 
