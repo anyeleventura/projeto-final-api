@@ -47,6 +47,7 @@ app.patch(`${url}/:id`, async (req, res) => {
     await database.execute(`UPDATE ${table} SET
                                 referencial='${dados.referencial || jaExiste[0].referencial}',
                                 desconto='${dados.desconto || jaExiste[0].desconto}',
+                                status='${dados.status || jaExiste[0].status}',
                                 updated_at='${dados.updated_at}'
                                 WHERE id=${req.params.id};
                             `);

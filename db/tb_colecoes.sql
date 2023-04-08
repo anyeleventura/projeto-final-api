@@ -18,6 +18,8 @@ RENAME TABLE tb_colecoes_destaque TO tb_colecoes;
 ALTER TABLE tb_colecoes
 ADD COLUMN cupomID INT;
 
--- ALTER TABLE tb_colecoes
--- ADD CONSTRAINT FK_colecoescupons
--- ADD FOREIGN KEY (`cupomID`) REFERENCES tb_cupons(`id`);
+ALTER TABLE tb_colecoes
+ADD FOREIGN KEY (cupomID) REFERENCES tb_cupom(id);
+
+ALTER TABLE tb_colecoes
+MODIFY COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;

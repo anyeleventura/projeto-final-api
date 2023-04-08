@@ -45,14 +45,23 @@ app.patch(`${url}/:id`, async (req, res) => {
     await database.execute(`UPDATE ${table} SET
                                 titulo='${dados.titulo || jaExiste[0].titulo}',
                                 imagem='${dados.imagem || jaExiste[0].imagem}',
-                                desconto='${dados.desconto || jaExiste[0].desconto}',
-                                updated_at='${dados.updated_at}'
+                                desconto='${dados.desconto || jaExiste[0].desconto}'
                             WHERE id=${req.params.id};
                             `);
     let atual = await database.execute(`SELECT * FROM ${table} 
                                             WHERE id=${req.params.id};`);
 
     res.send(atual[0]);
+});
+
+app.put(`${url}/:id`, async (req, res) => {
+    await database.execute(`UPDATE ${table} SET
+                            cupomID='${req.body.cupomID}';
+                            `);
+    let cupom = await database.execute(`SELECT * FROM ${table}
+                                        WHERE id='${req.params.id}';
+                                        `);
+    res.send(cupom[0]);
 });
 
 app.delete(`${url}/:id`, async (req, res) => {
