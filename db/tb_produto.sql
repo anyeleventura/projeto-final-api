@@ -37,3 +37,6 @@ RENAME COLUMN preco to valor;
 
 ALTER TABLE tb_produto
 MODIFY COLUMN descricao VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_produto
+MODIFY COLUMN desconto INT DEFAULT 0;

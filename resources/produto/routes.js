@@ -24,13 +24,12 @@ app.post(`${url}`, async (req, res) => {
     let corpo = req.body;
 
     let sql = await database.execute(`INSERT INTO ${table}
-                                        (nome, imagem, descricao, valor, desconto, marcaID, categoriaID, tamanho, cor, qtd, ref)
+                                        (nome, imagem, descricao, valor, marcaID, categoriaID, tamanho, cor, qtd, ref)
                                         VALUES
                                         ('${corpo.nome}', 
                                         '${corpo.imagem}', 
                                         '${corpo.descricao}', 
                                         '${corpo.valor}', 
-                                        '${corpo.desconto}', 
                                         '${corpo.marcaID}', 
                                         '${corpo.categoriaID}', 
                                         '${corpo.tamanho}', 

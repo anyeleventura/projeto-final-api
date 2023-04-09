@@ -24,9 +24,9 @@ app.post(`${url}`, async (req, res) => {
     let corpo = req.body;
 
     let sql = await database.execute(`INSERT INTO ${table}
-                                        (titulo, imagem, desconto)
+                                        (titulo, imagem)
                                     VALUES
-                                        ('${corpo.titulo}', '${corpo.imagem}', '${corpo.desconto}')`)
+                                        ('${corpo.titulo}', '${corpo.imagem}');`)
     let listaId = await database.execute(`SELECT * FROM ${table}
                                             WHERE id=${sql.insertId};`);
     res.status(201).send(listaId[0]);

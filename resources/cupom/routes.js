@@ -24,9 +24,9 @@ app.post(`${url}`, async (req, res) => {
     let corpo = req.body;
 
     let sql = await database.execute(`INSERT INTO ${table}
-                                        (referencial, desconto)
+                                        (cupom, desconto)
                                         VALUES
-                                        ('${corpo.referencial}', '${corpo.desconto}')
+                                        ('${corpo.cupom}', '${corpo.desconto}');
                                     `);
     let listaId = await database.execute(`SELECT * FROM ${table}
                                             WHERE id=${sql.insertId};
@@ -45,7 +45,7 @@ app.patch(`${url}/:id`, async (req, res) => {
             return;
     };
     await database.execute(`UPDATE ${table} SET
-                                referencial='${dados.referencial || jaExiste[0].referencial}',
+                                cupom='${dados.cupom || jaExiste[0].cupom}',
                                 desconto='${dados.desconto || jaExiste[0].desconto}',
                                 status='${dados.status || jaExiste[0].status}'
                                 WHERE id=${req.params.id};

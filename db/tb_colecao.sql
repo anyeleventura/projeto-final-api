@@ -30,3 +30,6 @@ ALTER TABLE tb_colecoes
 ADD COLUMN status INT DEFAULT 1;
 
 RENAME TABLE tb_colecoes TO tb_colecao;
+
+ALTER TABLE tb_colecao
+MODIFY COLUMN desconto INT DEFAULT 0;
