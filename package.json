@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.2.0",
+    "nodemon": "^2.0.22"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "projeto-final-api",
+  "description": "npm install express",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "equipe 4: Anyele, Rosana, Taiane, Rebeca",
+  "license": "ISC"
+}
