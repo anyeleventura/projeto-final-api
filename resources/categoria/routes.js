@@ -1,27 +1,23 @@
 const app = require('express').Router();
 const database = require('../../connection/database');
 
-const table = 'tb_cliente';
-const url = '/clientes';
+const table = 'tb_categoria';
+const url = '/categorias';
 
 app.get(url, async (req, res) => {
-    let dados = await database.execute(`
-        SELECT * FROM ${table}
-    `);
+    let dados = await database.execute(`SELECT * FROM ${table}`);
 
     res.send(dados);
 });
 
 app.get(`${url}/:id`, async (req, res) => {
     let dados = await database.execute(`
-        SELECT * FROM ${table} 
-        WHERE id='${req.params.id}'
+        SELECT * FROM ${table} WHERE id='${req.params.id}'
     `);
 
     // se certifica se existe
     let jaExiste = await database.execute(`
-        SELECT * FROM ${table} 
-        WHERE id='${req.params.id}'
+    SELECT * FROM ${table} WHERE id='${req.params.id}'
     `);
 
     if (undefined === jaExiste[0]) {
@@ -37,9 +33,9 @@ app.post(url, async (req, res) => {
 
     let sql = await database.execute(`
         INSERT INTO ${table} 
-            (nome, cpf, email, celular, senha)
+            (titulo, descricao)
         VALUES 
-            ('${corpo.nome}', '${corpo.cpf}','${corpo.email}', '${corpo.celular}', '${corpo.senha}')
+            ('${corpo.titulo}', '${corpo.descricao}')
     `);
 
     corpo.id = sql.insertId;
@@ -62,11 +58,8 @@ app.patch(`${url}/:id`, async (req, res) => {
 
     await database.execute(`
         UPDATE ${table} SET 
-            nome='${req.body.nome || jaExiste[0].nome}', 
-            cpf='${req.body.cpf || jaExiste[0].cpf}', 
-            email='${req.body.email || jaExiste[0].email}', 
-            celular='${req.body.celular || jaExiste[0].celular}', 
-            senha='${req.body.senha || jaExiste[0].senha}' 
+            titulo='${req.body.titulo || jaExiste[0].titulo}',
+            descricao='${req.body.descricao || jaExiste[0].descricao}' 
         WHERE id = '${req.params.id}'
     `);
 
