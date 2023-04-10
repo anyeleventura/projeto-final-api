@@ -1,16 +1,29 @@
 const express = require('express');
 
-const colecoesRouter = require('./resources/colecao/routes');
-const cuponsRouter = require('./resources/cupom/routes');
-const produtosRouter = require('./resources/produto/routes');
+const bannerRoutes = require('./resources/banner/routes');
+const categoriaRoutes = require("./resources/categoria/routes");
+const clienteRoutes = require('./resources/cliente/routes');
+const enderecoRoutes = require('./resources/endereco/routes');
+const tipopagamentoRoutes = require('./resources/tipo-pagamento/routes');
+const colecoeRouter = require('./resources/colecao/routes');
+const cuponRouter = require('./resources/cupom/routes');
+const produtoRouter = require('./resources/produto/routes');
 
 const app = express();
 
 app.use(express.json());
-app.use(colecoesRouter);
-app.use(cuponsRouter);
-app.use(produtosRouter);
+
+app.use(bannerRoutes);
+app.use(categoriaRoutes);
+app.use(clienteRoutes);
+app.use(enderecoRoutes);
+app.use(tipopagamentoRoutes);
+app.use(colecoeRouter);
+app.use(cuponRouter);
+app.use(produtoRouter);
 
 app.listen(8000, () => {
-    console.log('ta on');
+    console.log('--------------');
+    console.log('--- PRONTO ---')
+    console.log('--------------');
 });
