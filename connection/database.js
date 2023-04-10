@@ -5,16 +5,14 @@ async function execute(sql) {
         user: 'root',
         password: '1234',
         database: 'db_projeto_final',
-        host: 'localhost'        
+        host: 'localhost'
     });
 
-    //executa lá no mysql
     let [rows] = await conexao.execute(sql);
 
     return rows;
-}
+};
 
 module.exports = {
     execute
 };
-
