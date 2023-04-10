@@ -1,5 +1,7 @@
 const express = require('express');
 
+const marcaRouter = require('./resources/marca/routes');
+const usuarioRouter = require('./resources/usuario/routes');
 const bannerRoutes = require('./resources/banner/routes');
 const categoriaRoutes = require("./resources/categoria/routes");
 const clienteRoutes = require('./resources/cliente/routes');
@@ -13,6 +15,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use(marcaRouter);
+app.use(usuarioRouter);
 app.use(bannerRoutes);
 app.use(categoriaRoutes);
 app.use(clienteRoutes);
