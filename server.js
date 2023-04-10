@@ -11,10 +11,14 @@ const colecoeRouter = require('./resources/colecao/routes');
 const cuponRouter = require('./resources/cupom/routes');
 const produtoRouter = require('./resources/produto/routes');
 
+const swagger = require('swagger-ui-express');
+const docs = require('./docs.json');
+
 const app = express();
 
 app.use(express.json());
 
+app.use('/documentacao', swagger.serve, swagger.setup(docs));
 app.use(marcaRouter);
 app.use(usuarioRouter);
 app.use(bannerRoutes);
