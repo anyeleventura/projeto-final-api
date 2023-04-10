@@ -6,13 +6,18 @@ const table = 'tb_colecao';
 const url = '/colecoes';
 
 app.get(`${url}`, async (req, res) => {
-    let dados = await database.execute(`SELECT * FROM ${table};`);
+    let dados = await database.execute(`SELECT * FROM ${table} WHERE status = 1;`);
+    res.send(dados);
+});
+
+app.get(`${url}/inativos`, async (req, res) => {
+    let dados = await database.execute(`SELECT * FROM ${table} WHERE status = 0;`);
     res.send(dados);
 });
 
 app.get(`${url}/:id`, async (req, res) => {
     let dadosId = await database.execute(`SELECT * FROM ${table}
-                                            WHERE id=${req.params.id};`);
+                                            WHERE id=${req.params.id} AND status = 1;`);
 if(undefined === dadosId[0]) {
     res.sendStatus(404);
     return;

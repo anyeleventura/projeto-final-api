@@ -6,13 +6,21 @@ const table = 'tb_produto';
 const url = '/produtos';
 
 app.get(`${url}`, async (req, res) => {
-    let dados = await database.execute(`SELECT * FROM ${table};`);
+    let dados = await database.execute(`SELECT * FROM ${table} WHERE status = 1;`);
+    res.send(dados);
+});
+
+app.get(`${url}/inativos`, async (req, res) => {
+    let dados = await database.execute(`SELECT * FROM ${table} WHERE status = 0;`);
     res.send(dados);
 });
 
 app.get(`${url}/:id`, async (req, res) => {
-    let dadosId = await database.execute(`SELECT * FROM ${table}
-                                            WHERE id=${req.params.id};`);
+    let dadosId = await database.execute(`SELECT tb_produto.nome, tb_marca.marca, tb_produto.descricao, tb_cupom.cupom, tb_cupom.desconto
+    FROM tb_produto
+    INNER JOIN tb_marca ON tb_marca.id = tb_produto.marcaID
+    INNER JOIN tb_cupom ON tb_cupom.id = tb_produto.cupomID 
+    WHERE tb_produto.id=${req.params.id} AND tb_produto.status = 1;`);
     if(undefined === dadosId[0]) {
         res.sendStatus(404);
         return;
